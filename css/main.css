@@ -1,0 +1,36 @@
+@charset 'utf-8';
+@import './default.css';
+
+html {
+	font-family: 'Noto Serif KR';
+	font-size: 14px;
+}
+
+body {
+	overflow-x: hidden;
+	color: rgb(29, 29, 31);
+	letter-spacing: -0.05em;
+	background: white;
+}
+
+p {
+	line-height: 1.6;
+}
+
+.global-nav {
+	height: 44px;
+	margin-left: 14px;
+	margin-right: 14px;
+}
+
+.global-nav-link{
+	height: 100%;
+	margin: 0 auto;
+
+	max-width: 1000px;
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
