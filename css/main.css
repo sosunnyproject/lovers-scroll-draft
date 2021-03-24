@@ -21,6 +21,11 @@ p {
 	height: 44px;
 	margin-left: 14px;
 	margin-right: 14px;
+	padding: 0 1rem;
+}
+
+.local-nav {
+	padding: 0 1rem;
 }
 
 .global-nav-link{
@@ -34,3 +39,38 @@ p {
 	justify-content: space-between;
 }
 
+.scroll-section {
+	padding-top: 50vh;
+}
+
+.scroll-section h1 {
+	font-size: 4rem;
+	text-align: center;
+}
+
+.main-message {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 3em;
+	font-size: 2.5rem;
+	/* background: rgba(0, 0, 0, 0.5); */
+	margin: 5px 0;
+}
+
+.main-message p {
+	line-height: 1.2;
+	font-weight: bold;
+	text-align: center;
+}
+
+.desc-message p {
+	padding: 0 1rem;
+	font-size: 1.2rem;
+	color: #888;
+}
+
+footer {
+	text-align: right;
+	padding: 2rem;
+}
