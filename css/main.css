@@ -48,6 +48,20 @@ p {
 	text-align: center;
 }
 
+#scroll-section-1 .sub-message {
+	font-size: 1.6rem;
+	text-align: center;
+	font-weight: bold;
+}
+
+#scroll-section-1 .left-msg {
+	text-align: left;
+  margin-left: 10rem;
+}
+#scroll-section-1 .right-msg {
+	text-align: right;
+	margin-right: 7rem;
+}
 .main-message {
 	display: flex;
 	align-items: center;
@@ -70,7 +84,17 @@ p {
 	color: #888;
 }
 
+#left-gap {
+	margin-left: 3rem;
+}
+
 footer {
 	text-align: right;
 	padding: 2rem;
+	background: #999;
+	color: white;
+}
+
+@media (min-width: 1024px) {
+
 }
