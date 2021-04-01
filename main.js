@@ -7,8 +7,19 @@ const sceneInfo = [
     heightNum: 4,
     scrollHeight: 0,
     objs: {
-      container: document.querySelector('#scroll-section-0')
-    }
+      container: document.querySelector('#scroll-section-0'),
+      messages: [
+        document.querySelector('#scroll-section-0 .sticky-elem .a'),
+        document.querySelector('#scroll-section-0 .sticky-elem .b'),
+        document.querySelector('#scroll-section-0 .sticky-elem .c')
+      ]
+    },
+    // 스크롤 값에 따라서 메시지의 opacity values
+    opacity: [
+      [0, 1],
+      [0.3, 1],
+      [0.3, 1]
+    ]
   },
   {
     // 1
@@ -38,6 +49,8 @@ const sceneInfo = [
     }
   },
 ]
+
+
 function setLayout() {
   // 각 스크롤 섹션의 높이 세팅
   for(let i = 0; i < sceneInfo.length; i++){
@@ -48,6 +61,7 @@ function setLayout() {
 
 function scrollLoop() {
   console.log(window.pageYOffset)
+  playTextAnimation()
 }
 
 setLayout()
@@ -59,3 +73,7 @@ window.addEventListener('resize', () => {
 window.addEventListener('scroll', () => {
   scrollLoop()
 })
+
+function playTextAnimation() {
+  // 현재 scene (scroll-section-#)에 있는 애들만 opacity 변화 및 보이기
+}
