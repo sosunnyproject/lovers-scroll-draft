@@ -73,7 +73,7 @@ function scrollLoop() {
     currentScene++;
     document.body.setAttribute('id', `show-scene-${currentScene}`);
   }
-  else (yOffset < prevScrollHeight) {
+  else if (yOffset < prevScrollHeight) {
     currentScene--;
     document.body.setAttribute('id', `show-scene-${currentScene}`);
   }
