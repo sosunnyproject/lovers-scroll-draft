@@ -1,7 +1,7 @@
 const scenes = document.getElementsByClassName('scroll-section')
 let currentScene = 0;
 let prevScrollHeight = 0;
-let yOffset = window.pageYOffset;
+let yOffset = 0;
 
 const sceneInfo = [
   {
@@ -60,33 +60,41 @@ function setLayout() {
     sceneInfo[i].scrollHeight = sceneInfo[i].heightNum * window.innerHeight;
     sceneInfo[i].objs.container.style.height = `${sceneInfo[i].scrollHeight}px`;
   }
+  console.log(sceneInfo)
 }
 
+// 현재 scene (scroll-section)이 어딘지 업데이트한다
 function scrollLoop() {
-  console.log(window.pageYOffset)
-  // 현재 스크롤 좌표값을 기준으로 scene # 체크하고 업데이트한다
+  // 새로고침했을때, prevScrollHeight 가 무조건 0으로 뜨는 버그.
   prevScrollHeight = 0;
-  for(let i = 0; i < currentScene; i++) {
+  
+  // 현재 스크롤 좌표값을 기준으로 scene # 체크하고 업데이트한다
+  for(let i = 0; i < currentScene; i++){
     prevScrollHeight += sceneInfo[i].scrollHeight;
   }
   if (yOffset > prevScrollHeight + sceneInfo[currentScene].scrollHeight) {
     currentScene++;
     document.body.setAttribute('id', `show-scene-${currentScene}`);
-  }
-  else if (yOffset < prevScrollHeight) {
-    currentScene--;
+  } else if (yOffset < prevScrollHeight) {
+    if(currentScene !== 0) {
+      currentScene--;
+    }
     document.body.setAttribute('id', `show-scene-${currentScene}`);
   }
-  playTextAnimation()
+  console.log("prevHeight", prevScrollHeight)
+  console.log("current scene ? ", currentScene)
+  console.log("current y coord", yOffset)
+
+  // playTextAnimation()
 }
 
 setLayout()
 // bug: setLayout doesn't change when web width resize.
 window.addEventListener('resize', () => {
-  console.log("resize")
   setLayout()
 })
 window.addEventListener('scroll', () => {
+  yOffset = window.pageYOffset;
   scrollLoop()
 })
 

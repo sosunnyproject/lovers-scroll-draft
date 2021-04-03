@@ -17,7 +17,11 @@ p {
 	line-height: 1.6;
 }
 
+/* height에 미포함되도록, 포지션 absolute */
 .global-nav {
+	position: absolute; 
+	top: 0;
+	left: 0;
 	height: 44px;
 	margin-left: 14px;
 	margin-right: 14px;
@@ -40,6 +44,7 @@ p {
 }
 .scroll-section {
 	padding-top: 50vh;
+	border: 1px solid red;
 }
 
 .scroll-section h1 {
