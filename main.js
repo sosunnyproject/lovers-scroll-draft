@@ -115,3 +115,8 @@ function playTextAnimation() {
       break;
   }
 }
+
+// text opacity value calculationg
+function calcValues(opacityVal, currentYOffset) {
+
+}
