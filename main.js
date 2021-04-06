@@ -120,8 +120,9 @@ function playTextAnimation() {
   const currentY = yOffset - prevScrollHeight
   const currentSceneInfo = sceneInfo[currentScene]
   const opacityArr = currentSceneInfo.opacity
-  const scrollRatio = currentY / currentSceneInfo.scrollHeight
   const messagesNum = currentSceneInfo.objs.messages.length
+  const eachStickyHeight = currentSceneInfo.scrollHeight / messagesNum
+  console.log(eachStickyHeight)
 
   switch (currentScene) {
     case 0:
@@ -149,5 +150,6 @@ function playTextAnimation() {
 
 // calculating text opacity value relative to current y coordinate
 function calcValues(opacityVal, currentYCoord) {
-
+  const currentSceneInfo = sceneInfo[currentScene]
+  const scrollRatio = currentYCoord / currentSceneInfo.scrollHeight
 }
