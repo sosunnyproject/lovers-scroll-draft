@@ -30,8 +30,16 @@ const sceneInfo = [
     heightNum: 4,
     scrollHeight: 0,
     objs: {
-      container: scenes[1]
-    }
+      container: document.querySelector('#scroll-section-1'),
+      messages: [
+        document.querySelector('#scroll-section-1 .sticky-elem .a'),
+        document.querySelector('#scroll-section-1 .sticky-elem .b'),
+        document.querySelector('#scroll-section-1 .sticky-elem .c'),
+        document.querySelector('#scroll-section-1 .sticky-elem .d'),
+        document.querySelector('#scroll-section-1 .sticky-elem .e')
+
+      ]
+    },
   },
   {
     // 2
@@ -39,7 +47,12 @@ const sceneInfo = [
     heightNum: 4,
     scrollHeight: 0,
     objs: {
-      container: scenes[2]
+      container: scenes[2],
+      messages: [
+        document.querySelector('#scroll-section-2 .sticky-elem .a'),
+        document.querySelector('#scroll-section-2 .sticky-elem .b'),
+        document.querySelector('#scroll-section-2 .sticky-elem .c')
+      ]
     }
   },
   {
@@ -48,7 +61,14 @@ const sceneInfo = [
     heightNum: 4,
     scrollHeight: 0,
     objs: {
-      container: scenes[3]
+      container: scenes[3],
+      messages: [
+        document.querySelector('#scroll-section-3 .sticky-elem .a'),
+        document.querySelector('#scroll-section-3 .sticky-elem .b'),
+        document.querySelector('#scroll-section-3 .sticky-elem .c'),
+        document.querySelector('#scroll-section-3 .sticky-elem .d'),
+        document.querySelector('#scroll-section-3 .sticky-elem .e')
+      ]
     }
   },
 ]
@@ -60,7 +80,6 @@ function setLayout() {
     sceneInfo[i].scrollHeight = sceneInfo[i].heightNum * window.innerHeight;
     sceneInfo[i].objs.container.style.height = `${sceneInfo[i].scrollHeight}px`;
   }
-  console.log(sceneInfo)
 }
 
 // 현재 scene (scroll-section)이 어딘지 업데이트한다
@@ -81,11 +100,8 @@ function scrollLoop() {
     }
     document.body.setAttribute('id', `show-scene-${currentScene}`);
   }
-  console.log("prevHeight", prevScrollHeight)
-  console.log("current scene ? ", currentScene)
-  console.log("current y coord", yOffset)
 
-  // playTextAnimation()
+  playTextAnimation()
 }
 
 setLayout()
@@ -100,23 +116,38 @@ window.addEventListener('scroll', () => {
 
 function playTextAnimation() {
   // 현재 scene (scroll-section-#)에 있는 애들만 opacity 변화 및 보이기
+  // totalYOffset - prevScrollHeight = currentYOffset
+  const currentY = yOffset - prevScrollHeight
+  const currentSceneInfo = sceneInfo[currentScene]
+  const opacityArr = currentSceneInfo.opacity
+  const scrollRatio = currentY / currentSceneInfo.scrollHeight
+  const messagesNum = currentSceneInfo.objs.messages.length
+
   switch (currentScene) {
     case 0:
-      console.log('scene 0');
+      console.log('scene 0, 3 sticky elems');
+      // map(scrollRatio, opacityArr[start], opacityArr[end])
+      calcValues(opacityArr, currentY)
       break;
     case 1:
       console.log('scene 1');
+      // console.log(sceneInfo[currentScene].opacity)
+
       break;
     case 2:
       console.log('scene 2');
+      // console.log(sceneInfo[currentScene].opacity)
+
       break;
     case 3:
       console.log('scene 3');
+      // console.log(sceneInfo[currentScene].opacity)
+
       break;
   }
 }
 
-// text opacity value calculationg
-function calcValues(opacityVal, currentYOffset) {
+// calculating text opacity value relative to current y coordinate
+function calcValues(opacityVal, currentYCoord) {
 
 }
