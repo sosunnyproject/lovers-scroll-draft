@@ -12,17 +12,13 @@ const sceneInfo = [
     objs: {
       container: document.querySelector('#scroll-section-0'),
       messages: [
-        document.querySelector('#scroll-section-0 .sticky-elem .a'),
-        document.querySelector('#scroll-section-0 .sticky-elem .b'),
-        document.querySelector('#scroll-section-0 .sticky-elem .c')
+        document.querySelector('#scroll-section-0 .sticky-elem.a'),
+        document.querySelector('#scroll-section-0 .sticky-elem.b'),
+        document.querySelector('#scroll-section-0 .sticky-elem.c')
       ]
     },
     // 스크롤 값에 따라서 메시지의 opacity values
-    opacity: [
-      [0, 1],
-      [0.3, 1],
-      [0.3, 1]
-    ]
+    opacity: [0, 1]
   },
   {
     // 1
@@ -120,15 +116,18 @@ function playTextAnimation() {
   const currentY = yOffset - prevScrollHeight
   const currentSceneInfo = sceneInfo[currentScene]
   const opacityArr = currentSceneInfo.opacity
-  const messagesNum = currentSceneInfo.objs.messages.length
+  const objs = currentSceneInfo.objs
+  const messages = currentSceneInfo.objs.messages
+
+  const messagesNum = messages.length
   const eachStickyHeight = currentSceneInfo.scrollHeight / messagesNum
   console.log(eachStickyHeight)
 
   switch (currentScene) {
     case 0:
-      console.log('scene 0, 3 sticky elems');
       // map(scrollRatio, opacityArr[start], opacityArr[end])
-      calcValues(opacityArr, currentY)
+      const opacityIn = calcValues(opacityArr, currentY)
+      messages[0].style.opacity = opacityIn
       break;
     case 1:
       console.log('scene 1');
@@ -149,7 +148,10 @@ function playTextAnimation() {
 }
 
 // calculating text opacity value relative to current y coordinate
-function calcValues(opacityVal, currentYCoord) {
+function calcValues(opacityArr, currentYCoord) {
   const currentSceneInfo = sceneInfo[currentScene]
   const scrollRatio = currentYCoord / currentSceneInfo.scrollHeight
+  const opacityVal = (scrollRatio * (opacityArr[1] - opacityArr[0])) + opacityArr[0]
+
+  return opacityVal
 }
