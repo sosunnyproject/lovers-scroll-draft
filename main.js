@@ -28,12 +28,12 @@ const sceneInfo = [
     objs: {
       container: document.querySelector('#scroll-section-1'),
       messages: [
-        document.querySelector('#scroll-section-1 .sticky-elem .a'),
-        document.querySelector('#scroll-section-1 .sticky-elem .b'),
-        document.querySelector('#scroll-section-1 .sticky-elem .c'),
-        document.querySelector('#scroll-section-1 .sticky-elem .d'),
-        document.querySelector('#scroll-section-1 .sticky-elem .e')
-
+        document.querySelector('#scroll-section-1 .sticky-elem.a'),
+        document.querySelector('#scroll-section-1 .sticky-elem.b'),
+        document.querySelector('#scroll-section-1 .sticky-elem.c'),
+        document.querySelector('#scroll-section-1 .sticky-elem.d'),
+        document.querySelector('#scroll-section-1 .sticky-elem.e'),
+        document.querySelector('#scroll-section-1 .sticky-elem.f')
       ]
     },
   },
@@ -45,9 +45,9 @@ const sceneInfo = [
     objs: {
       container: scenes[2],
       messages: [
-        document.querySelector('#scroll-section-2 .sticky-elem .a'),
-        document.querySelector('#scroll-section-2 .sticky-elem .b'),
-        document.querySelector('#scroll-section-2 .sticky-elem .c')
+        document.querySelector('#scroll-section-2 .sticky-elem.a'),
+        document.querySelector('#scroll-section-2 .sticky-elem.b'),
+        document.querySelector('#scroll-section-2 .sticky-elem.c')
       ]
     }
   },
@@ -59,11 +59,11 @@ const sceneInfo = [
     objs: {
       container: scenes[3],
       messages: [
-        document.querySelector('#scroll-section-3 .sticky-elem .a'),
-        document.querySelector('#scroll-section-3 .sticky-elem .b'),
-        document.querySelector('#scroll-section-3 .sticky-elem .c'),
-        document.querySelector('#scroll-section-3 .sticky-elem .d'),
-        document.querySelector('#scroll-section-3 .sticky-elem .e')
+        document.querySelector('#scroll-section-3 .sticky-elem.a'),
+        document.querySelector('#scroll-section-3 .sticky-elem.b'),
+        document.querySelector('#scroll-section-3 .sticky-elem.c'),
+        document.querySelector('#scroll-section-3 .sticky-elem.d'),
+        document.querySelector('#scroll-section-3 .sticky-elem.e')
       ]
     }
   },
