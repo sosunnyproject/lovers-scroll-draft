@@ -121,7 +121,6 @@ function playTextAnimation() {
 
   const messagesNum = messages.length
   const eachStickyHeight = currentSceneInfo.scrollHeight / messagesNum
-  console.log(eachStickyHeight)
 
   switch (currentScene) {
     case 0:
@@ -130,17 +129,14 @@ function playTextAnimation() {
       messages[0].style.opacity = opacityIn
       break;
     case 1:
-      console.log('scene 1');
       // console.log(sceneInfo[currentScene].opacity)
 
       break;
     case 2:
-      console.log('scene 2');
       // console.log(sceneInfo[currentScene].opacity)
 
       break;
     case 3:
-      console.log('scene 3');
       // console.log(sceneInfo[currentScene].opacity)
 
       break;
