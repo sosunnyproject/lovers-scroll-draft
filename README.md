@@ -11,7 +11,10 @@ making scroll website with canvas, vanilla javascript
 - talks at concerts
 
 ## version 2
-- lyrics 
+- lyrics based, not talks
+- songs after Wild Flower
 
 ## version 3
 - both with voice files
+
+
