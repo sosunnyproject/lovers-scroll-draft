@@ -74,22 +74,23 @@ p {
 	font-size: 1.6rem;
 	text-align: center;
 	font-weight: bold;
+	opacity: 0;
+	top: 25%;
 }
 #scroll-section-1 .left-msg {
 	text-align: left;
-  margin-left: 10rem;
+  padding-left: 10rem;
 }
 #scroll-section-1 .right-msg {
 	text-align: right;
-	margin-right: 7rem;
+	padding-right: 10rem;
 }
-
-.desc-message {
-	font-size: 1rem;
-	color: #888;
-	display: flex;
-	justify-content: center;
-	margin: 2rem 0;
+#scroll-section-1 .desc-message {
+	top: 25%;
+	font-size: 1.6rem;
+	line-height: 1.2;
+	opacity: 0;
+	padding-left: 10px;
 }
 
 .sticky-elem {

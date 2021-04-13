@@ -8,7 +8,7 @@ const sceneInfo = [
   {
     // 0
     type: 'sticky',
-    heightNum: 4,
+    heightNum: 3,
     scrollHeight: 0,
     objs: {
       container: document.querySelector('#scroll-section-0'),
@@ -48,7 +48,7 @@ const sceneInfo = [
   {
     // 1
     type: 'sticky',
-    heightNum: 4,
+    heightNum: 8,
     scrollHeight: 0,
     objs: {
       container: document.querySelector('#scroll-section-1'),
@@ -58,25 +58,43 @@ const sceneInfo = [
         document.querySelector('#scroll-section-1 .sticky-elem.c'),
         document.querySelector('#scroll-section-1 .sticky-elem.d'),
         document.querySelector('#scroll-section-1 .sticky-elem.e'),
-        document.querySelector('#scroll-section-1 .sticky-elem.f')
+        document.querySelector('#scroll-section-1 .sticky-elem.f'),
+        document.querySelector('#scroll-section-1 .sticky-elem.g'),
+        document.querySelector('#scroll-section-1 .sticky-elem.h'),
+        document.querySelector('#scroll-section-1 .sticky-elem.i'),
+        document.querySelector('#scroll-section-1 .sticky-elem.j'),
+        document.querySelector('#scroll-section-1 .sticky-elem.k')
       ]
     },
     opacity: {
       in: [ 
-        [0, 1, {start: 0.02, end: 0.2}],
-        [0, 1, {start: 0.2, end: 0.35}], 
-        [0, 1, {start: 0.3, end: 0.4}], 
-        [0, 1, {start: 0.35, end: 0.45}],
-        [0, 1, {start: 0.4, end: 0.55}], 
-        [0, 1, {start: 0.5, end: 0.65}], 
+        [0, 1, {start: 0.01, end: 0.06}], // a
+        [0, 1, {start: 0.10, end: 0.16}], // b
+        [0, 1, {start: 0.20, end: 0.23}], // c
+        [0, 1, {start: 0.26, end: 0.29}], // d
+        [0, 1, {start: 0.32, end: 0.35}], // e
+        [0, 1, {start: 0.38, end: 0.41}], // f
+
+        [0, 1, {start: 0.44, end: 0.50}], // g
+        [0, 1, {start: 0.54, end: 0.59}], // h
+        [0, 1, {start: 0.63, end: 0.68}], // i
+        [0, 1, {start: 0.71, end: 0.77}], // j
+        [0, 1, {start: 0.81, end: 0.87}], // k
+
       ],
-      out: [ 
-        [1, 0, {start: 0.21, end: 0.3}],  
-        [1, 0, {start: 0.36, end: 0.4}],  
-        [1, 0, {start: 0.41, end: 0.5}], 
-        [1, 0, {start: 0.46, end: 0.55}],  
-        [1, 0, {start: 0.56, end: 0.65}],  
-        [1, 0, {start: 0.66, end: 0.75}],  
+      out: [  // 2 seconds
+        [1, 0, {start: 0.07, end: 0.09}], // a
+        [1, 0, {start: 0.17, end: 0.19}], // b
+        [1, 0, {start: 0.24, end: 0.25}], // c
+        [1, 0, {start: 0.30, end: 0.31}], // d
+        [1, 0, {start: 0.36, end: 0.37}], // e
+        [1, 0, {start: 0.42, end: 0.43}],  // f
+
+        [1, 0, {start: 0.51, end: 0.53}], // g
+        [1, 0, {start: 0.60, end: 0.62}], // h
+        [1, 0, {start: 0.69, end: 0.70}], // i
+        [1, 0, {start: 0.78, end: 0.80}], // j
+        [1, 0, {start: 0.88, end: 0.90}], // k
       ]
     },
   },
@@ -178,8 +196,35 @@ function playTextAnimation() {
   // const messagesNum = messages.length
   // const eachStickyHeight = currentSceneInfo.scrollHeight / messagesNum
 
-  console.log("currentscene? ", currentScene)
+  if(currentScene < 2) {
+    const inIdx = fadeInArr.findIndex((arr) => (scrollRatio < arr[2].end+0.005))
+    if(inIdx >= 0 && (inIdx < messages.length)) {
+      messages[inIdx].style.opacity = calcValues(fadeInArr[inIdx], currentY)
+      if(translateInArr && translateInArr.length > 0) {
+        messages[inIdx].style.transform = `translateY(${calcValues(translateInArr[inIdx], currentY)}px)`;
+      }
+    }
+    // fade in -  fix bug, 가끔 오류로 보이는 opacity : 0 으로 고치기
+    messages.forEach((message, idx) => {
+      if (scrollRatio < fadeInArr[idx][2].start) {
+        message.style.opacity = 0
+        console.log(idx, ": ", message)
+      }
+    })
+    // fade out
+    messages.forEach((message, idx) => {
+      if(scrollRatio > (fadeOutArr[idx][2].start-0.005)) { 
+        console.log("fade out index: " , idx)
 
+        message.style.opacity = calcValues(fadeOutArr[idx], currentY)
+        if(translateOutArr && translateOutArr.length > 0) {
+          message.style.transform = `translateY(${calcValues(translateOutArr[idx], currentY)}px)`;
+        }
+      }
+    })
+  }
+
+  /*
   switch (currentScene) {
     case 0:
       // fade in , apply only when scrollRatio is smaller than end+0.01
@@ -209,6 +254,7 @@ function playTextAnimation() {
 
       break;
   }
+  */
 }
 
 // calculating text opacity value relative to current y coordinate
