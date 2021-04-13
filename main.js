@@ -19,19 +19,31 @@ const sceneInfo = [
       ]
     },
     // 스크롤 값에 따라서 메시지의 opacity values
-    opacity: [
-      [0, 1, {start: 0.1, end: 0.2}], // in
-      [1, 0, {start: 0.23, end: 0.3}], // out
-      [0, 1, {start: 0.3, end: 0.4}], // in
-      [1, 0, {start: 0.43, end: 0.5}], // out
-      [0, 1, {start: 0.5, end: 0.6}], // in 
-      [1, 0, {start: 0.63, end: 0.7}], // out
-    ],
-    translate: [
-      [40, 0, { start: 0.1, end: 0.2}],
-      [0, -40, { start: 0.23, end: 0.3}],
-
-    ]
+    // 각 array 길이는 messages 와 동일해야 한다.
+    opacity: {
+      in: [ 
+        [0, 1, {start: 0.02, end: 0.2}],
+        [0, 1, {start: 0.3, end: 0.5}], 
+        [0, 1, {start: 0.7, end: 0.85}], 
+      ],
+      out: [ 
+        [1, 0, {start: 0.22, end: 0.3}],  
+        [1, 0, {start: 0.52, end: 0.7}],  
+        [1, 0, {start: 0.87, end: 0.95}],  
+      ]
+    },
+    translate: {
+      in : [
+        [40, 0, { start: 0.02, end: 0.2}], 
+        [40, 0, { start: 0.3, end: 0.5}], 
+        [40, 0, { start: 0.7, end: 0.85}], 
+      ],
+      out: [
+        [0, -120, { start: 0.22, end: 0.3}],
+        [0, -120, { start: 0.52, end: 0.7}],
+        [0, -120, { start: 0.87, end: 0.95}],
+      ]
+    } 
   },
   {
     // 1
@@ -49,18 +61,36 @@ const sceneInfo = [
         document.querySelector('#scroll-section-1 .sticky-elem.f')
       ]
     },
+    opacity: {
+      in: [ 
+        [0, 1, {start: 0.02, end: 0.2}],
+        [0, 1, {start: 0.2, end: 0.35}], 
+        [0, 1, {start: 0.3, end: 0.4}], 
+        [0, 1, {start: 0.35, end: 0.45}],
+        [0, 1, {start: 0.4, end: 0.55}], 
+        [0, 1, {start: 0.5, end: 0.65}], 
+      ],
+      out: [ 
+        [1, 0, {start: 0.21, end: 0.3}],  
+        [1, 0, {start: 0.36, end: 0.4}],  
+        [1, 0, {start: 0.41, end: 0.5}], 
+        [1, 0, {start: 0.46, end: 0.55}],  
+        [1, 0, {start: 0.56, end: 0.65}],  
+        [1, 0, {start: 0.66, end: 0.75}],  
+      ]
+    },
   },
   {
     // 2
-    type: 'sticky',
+    type: 'normal',
     heightNum: 4,
     scrollHeight: 0,
     objs: {
       container: scenes[2],
       messages: [
-        document.querySelector('#scroll-section-2 .sticky-elem.a'),
-        document.querySelector('#scroll-section-2 .sticky-elem.b'),
-        document.querySelector('#scroll-section-2 .sticky-elem.c')
+        document.querySelector('#scroll-section-2 .a'),
+        document.querySelector('#scroll-section-2 .b'),
+        document.querySelector('#scroll-section-2 .c')
       ]
     }
   },
@@ -86,30 +116,33 @@ const sceneInfo = [
 function setLayout() {
   // 각 스크롤 섹션의 높이 세팅
   for(let i = 0; i < sceneInfo.length; i++){
-    sceneInfo[i].scrollHeight = sceneInfo[i].heightNum * window.innerHeight;
-    sceneInfo[i].objs.container.style.height = `${sceneInfo[i].scrollHeight}px`;
+    if(sceneInfo[i].type === 'sticky') {
+      // 내용 비율에 맞춰서 높이 늘어나게끔
+      sceneInfo[i].scrollHeight = sceneInfo[i].heightNum * window.innerHeight;
+    } else if (sceneInfo[i].type === 'normal' ) {
+      // 일반적인 높인
+      sceneInfo[i].scrollHeight = sceneInfo[i].objs.container.offsetHeight;
+    }
+    sceneInfo[i].objs.container.style.height = `${sceneInfo[i].scrollHeight}px`;      
   }
 }
 
 // 현재 scene (scroll-section)이 어딘지 업데이트한다
 function scrollLoop() {
-  // 새로고침했을때, prevScrollHeight 가 무조건 0으로 뜨는 버그.
   prevScrollHeight = 0;
   enterNewScene = false;
-  
   // 현재 스크롤 좌표값을 기준으로 scene # 체크하고 업데이트한다
   for(let i = 0; i < currentScene; i++){
     prevScrollHeight += sceneInfo[i].scrollHeight;
   }
-  if (yOffset > prevScrollHeight + sceneInfo[currentScene].scrollHeight) {
+  if (yOffset > (prevScrollHeight + sceneInfo[currentScene].scrollHeight)) {
     enterNewScene = true
     currentScene++;
     document.body.setAttribute('id', `show-scene-${currentScene}`);
   } else if (yOffset < prevScrollHeight) {
     enterNewScene = true
-    if(currentScene !== 0) {
-      currentScene--;
-    }
+    if(currentScene === 0) return;  // 브라우저 바운스 효과 마이너스 방지
+    currentScene--;
     document.body.setAttribute('id', `show-scene-${currentScene}`);
   }
 
@@ -133,9 +166,12 @@ function playTextAnimation() {
   // totalYOffset - prevScrollHeight = currentYOffset
   const currentY = yOffset - prevScrollHeight
   const currentSceneInfo = sceneInfo[currentScene]
-  const opacityArr = currentSceneInfo.opacity
-  const trasnlateArr = currentSceneInfo.translate
-  const objs = currentSceneInfo.objs
+  const fadeInArr = currentSceneInfo.opacity?.in
+  const fadeOutArr = currentSceneInfo.opacity?.out
+  const translateInArr = currentSceneInfo.translate?.in
+  const translateOutArr = currentSceneInfo.translate?.out
+
+  // const objs = currentSceneInfo.objs
   const messages = currentSceneInfo.objs.messages
   // fade in, out 위해서 scrollRatio 계산 및 응용
   const scrollRatio = currentY / currentSceneInfo.scrollHeight
@@ -146,37 +182,19 @@ function playTextAnimation() {
 
   switch (currentScene) {
     case 0:
-      const opacityInA = calcValues(opacityArr[0], currentY)
-      const opacityOutA = calcValues(opacityArr[1], currentY)
-      const translateInA = calcValues(trasnlateArr[0], currentY)
-      const translateOutA = calcValues(trasnlateArr[1], currentY)
-
-      if(scrollRatio <= 0.22) {  // FADE IN
-        messages[0].style.opacity = opacityInA
-        messages[0].style.transform = `translateY(${translateInA}%)`;
-      } else { // fade out
-        messages[0].style.opacity = opacityOutA
-        messages[0].style.transform = `translateY(${translateOutA}%)`;
+      // fade in , apply only when scrollRatio is smaller than end+0.01
+      const inIdx = fadeInArr.findIndex((arr) => (scrollRatio < arr[2].end+0.01))
+      if(inIdx >= 0 && (inIdx < messages.length)) {
+        messages[inIdx].style.opacity = calcValues(fadeInArr[inIdx], currentY)
+        messages[inIdx].style.transform = `translateY(${calcValues(translateInArr[inIdx], currentY)}px)`;
       }
-
-      const opacityInB = calcValues(opacityArr[2], currentY)
-      const opacityOutB = calcValues(opacityArr[3], currentY)
-
-      if(scrollRatio <= 0.42) {  // FADE IN
-        messages[1].style.opacity = opacityInB
-      } else { // fade out
-        messages[1].style.opacity = opacityOutB
-      }
-
-      const opacityInC = calcValues(opacityArr[4], currentY)
-      const opacityOutC = calcValues(opacityArr[5], currentY)
-
-      if(scrollRatio <= 0.62) {  // FADE IN
-        messages[2].style.opacity = opacityInC
-      } else { // fade out
-        messages[2].style.opacity = opacityOutC
-      }
-
+      // fade out
+      messages.forEach((message, idx) => {
+        if(scrollRatio > (fadeOutArr[idx][2].start-0.01)) { 
+          message.style.opacity = calcValues(fadeOutArr[idx], currentY)
+          message.style.transform = `translateY(${calcValues(translateOutArr[idx], currentY)}px)`;
+        }
+      })
       break;
     case 1:
       // console.log(sceneInfo[currentScene].opacity)
