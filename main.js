@@ -77,7 +77,7 @@ const sceneInfo = [
 
         [0, 1, {start: 0.44, end: 0.50}], // g
         [0, 1, {start: 0.54, end: 0.59}], // h
-        [0, 1, {start: 0.63, end: 0.68}], // i
+        [0, 1, {start: 0.63, end: 0.80}], // i
         [0, 1, {start: 0.71, end: 0.77}], // j
         [0, 1, {start: 0.81, end: 0.87}], // k
 
@@ -92,7 +92,7 @@ const sceneInfo = [
 
         [1, 0, {start: 0.51, end: 0.53}], // g
         [1, 0, {start: 0.60, end: 0.62}], // h
-        [1, 0, {start: 0.69, end: 0.70}], // i
+        [1, 0, {start: 0.69, end: 0.88}], // i
         [1, 0, {start: 0.78, end: 0.80}], // j
         [1, 0, {start: 0.88, end: 0.90}], // k
       ]
@@ -124,9 +124,32 @@ const sceneInfo = [
         document.querySelector('#scroll-section-3 .sticky-elem.b'),
         document.querySelector('#scroll-section-3 .sticky-elem.c'),
         document.querySelector('#scroll-section-3 .sticky-elem.d'),
-        document.querySelector('#scroll-section-3 .sticky-elem.e')
+        document.querySelector('#scroll-section-3 .sticky-elem.e'),
+        document.querySelector('#scroll-section-3 .sticky-elem.f'),
+        document.querySelector('#scroll-section-3 .sticky-elem.g')
       ]
-    }
+    },
+    opacity: {
+      in: [  // +8
+        [0, 1, {start: 0.01, end: 0.08}], // a
+        [0, 1, {start: 0.11, end: 0.19}], // b
+        [0, 1, {start: 0.21, end: 0.29}], // c
+        [0, 1, {start: 0.31, end: 0.39}], // d
+        [0, 1, {start: 0.41, end: 0.49}], // e
+        [0, 1, {start: 0.51, end: 0.60}], // f
+
+        [0, 1, {start: 0.63, end: 0.70}], // g
+      ],
+      out: [  // 2 seconds
+        [1, 0, {start: 0.08, end: 0.10}], // a
+        [1, 0, {start: 0.19, end: 0.21}], // b
+        [1, 0, {start: 0.29, end: 0.31}], // c
+        [1, 0, {start: 0.39, end: 0.41}], // d
+        [1, 0, {start: 0.49, end: 0.51}], // e
+        [1, 0, {start: 0.60, end: 0.62}],  // f
+        [1, 0, {start: 0.71, end: 0.75}], // g
+      ]
+    },
   },
 ]
 
@@ -196,12 +219,12 @@ function playTextAnimation() {
   // const messagesNum = messages.length
   // const eachStickyHeight = currentSceneInfo.scrollHeight / messagesNum
 
-  if(currentScene < 2) {
+  if(currentScene == 0 || currentScene == 1 || currentScene == 3) {
     const inIdx = fadeInArr.findIndex((arr) => (scrollRatio < arr[2].end+0.005))
     if(inIdx >= 0 && (inIdx < messages.length)) {
       messages[inIdx].style.opacity = calcValues(fadeInArr[inIdx], currentY)
       if(translateInArr && translateInArr.length > 0) {
-        messages[inIdx].style.transform = `translateY(${calcValues(translateInArr[inIdx], currentY)}px)`;
+        messages[inIdx].style.transform = `translate3d(0, ${calcValues(translateInArr[inIdx], currentY)}px, 0)`;
       }
     }
     // fade in -  fix bug, 가끔 오류로 보이는 opacity : 0 으로 고치기

@@ -91,6 +91,7 @@ p {
 	line-height: 1.2;
 	opacity: 0;
 	padding-left: 10px;
+	text-align: center;
 }
 
 .sticky-elem {
