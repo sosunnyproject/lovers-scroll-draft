@@ -76,10 +76,10 @@ const sceneInfo = [
         [0, 1, {start: 0.38, end: 0.41}], // f
 
         [0, 1, {start: 0.44, end: 0.50}], // g
-        [0, 1, {start: 0.54, end: 0.59}], // h
-        [0, 1, {start: 0.63, end: 0.80}], // i
-        [0, 1, {start: 0.71, end: 0.77}], // j
-        [0, 1, {start: 0.81, end: 0.87}], // k
+        [0, 1, {start: 0.54, end: 0.68}], // h
+        [0, 1, {start: 0.63, end: 0.68}], // i
+        [0, 1, {start: 0.71, end: 0.84}], // j
+        [0, 1, {start: 0.77, end: 0.90}], // k
 
       ],
       out: [  // 2 seconds
@@ -91,10 +91,10 @@ const sceneInfo = [
         [1, 0, {start: 0.42, end: 0.43}],  // f
 
         [1, 0, {start: 0.51, end: 0.53}], // g
-        [1, 0, {start: 0.60, end: 0.62}], // h
-        [1, 0, {start: 0.69, end: 0.88}], // i
-        [1, 0, {start: 0.78, end: 0.80}], // j
-        [1, 0, {start: 0.88, end: 0.90}], // k
+        [1, 0, {start: 0.68, end: 0.70}], // h
+        [1, 0, {start: 0.69, end: 0.71}], // i
+        [1, 0, {start: 0.84, end: 0.90}], // j
+        [1, 0, {start: 0.91, end: 0.95}], // k
       ]
     },
   },
