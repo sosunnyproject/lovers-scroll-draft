@@ -23,8 +23,5 @@ making scroll website with canvas, vanilla javascript
 ## schedule
 
 - 모든 텍스트 애니메이션 적용하기
-- 비디오 샘플로 인터렉션 적용해보기
-- 이미지, svg, video, audio, threejs 배경 
-- 원하는 이미지 샘플 그리기
+- 이미지, svg, video, audio, threejs 배경 제작
 - Chapter 4, 5, 6, 7
-- Chapter 6, 7
