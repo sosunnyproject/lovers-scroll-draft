@@ -4,6 +4,16 @@ let prevScrollHeight = 0;
 let yOffset = 0;
 let enterNewScene = false; // (역)스크롤하다가 음수 나오는 경우 예방.
 
+// video 
+// https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/loadeddata_event
+const videoElem = document.querySelector('.sample-video')
+let videoDuration;
+videoElem.addEventListener('loadeddata', function() {
+  console.log('video load done');
+  videoDuration = videoElem.duration;
+  init();
+})
+
 const sceneInfo = [
   {
     // 0
