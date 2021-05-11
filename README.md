@@ -23,5 +23,8 @@ making scroll website with canvas, vanilla javascript
 ## schedule
 
 - 모든 텍스트 애니메이션 적용하기
-- 이미지, svg, video, audio, threejs 배경 제작
-- Chapter 4, 5, 6, 7
+- 이미지, svg, video, audio, threejs 사용
+- Chapter 4, 5, 6, 7 튜토리얼
+- section 1: 오프닝, lovers 테마
+- section 2: 꽃길 테마, 눈꽃, 야생화, 장미꽃, 꽃말: 청춘, 시련, 극복, 우정, 사랑 인 꽃들 리서치
+- section 3: 하늘의 새, V, 엔딩 테마
